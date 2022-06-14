@@ -4,8 +4,9 @@ export const BarChartWrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: flex-start;
+  align-items: center; */
+  flex-direction: column;
 `;
 export const SVG = styled.svg.attrs({
   version: "1.1",
@@ -14,10 +15,11 @@ export const SVG = styled.svg.attrs({
 })`
   width: 100%;
   height: 100%;
+  font-size: 14px;
 `;
 
 export const Bar = styled.div`
   font-size: 14px;
-  text-align: right;
-  color : white;
+  color: white;
+  margin: 40px 0;
 `;
