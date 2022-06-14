@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "jsx": "react",
+    "module": "esnext",
+    "allowJs": true,
+    "strict": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node"
+    // "forceConsistentCasingInFileNames": true,
+  },
+  "include": ["src/**/*", "image.d.ts", "./src/jest-setup.tsx"],
+  "exclude": ["node_modules"]
+}

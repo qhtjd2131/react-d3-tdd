@@ -1,0 +1,5 @@
+# 모듈
+node_modules
+dist/*
+*.log
+.env
