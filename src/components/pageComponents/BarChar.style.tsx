@@ -23,18 +23,6 @@ export const Bar = styled.div`
   margin: 40px 0;
 `;
 
-export const RangeWrapper = styled.div`
-  margin: 0 auto;
-  
-`;
-
-export const RangeInput = styled.input``;
-
-export const RangeLabel = styled.label`
-  color: white;
-  font-size: 20px;
-  margin-right: 20px;
-`;
 
 //스타일링하기
 //d3.js 그리는 방법알기

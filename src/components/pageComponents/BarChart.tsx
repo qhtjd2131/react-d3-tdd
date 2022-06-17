@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import * as style from "./BarChar.style";
+import BarChartSlider from "./BarChartSlider";
 
-interface BarCharData {
+export interface BarChartData {
   name: string;
   value: number;
 }
@@ -14,7 +15,7 @@ interface BarChartProps {
 }
 const BarChart = (props: BarChartProps) => {
   const svgRef = useRef(null);
-  const [data, setData] = useState<BarCharData[]>([
+  const [data, setData] = useState<BarChartData[]>([
     { name: "A", value: 5 },
     { name: "B", value: 31 },
     { name: "C", value: 42 },
@@ -25,17 +26,10 @@ const BarChart = (props: BarChartProps) => {
   const barSpace = 4;
   const width = maxBarWidth;
 
-  const onSetValue = (valueNumber: number, index: number) => {
-    const dataTemp: BarCharData[] = [...data];
-    dataTemp[index].value =
-      typeof valueNumber != "number" ? parseInt(valueNumber) : valueNumber;
-    setData(dataTemp);
-  };
-
   const margin = { top: 20, right: 0, bottom: 30, left: 20 };
   const xScale: d3.ScaleLinear<number, number, never> = d3
     .scaleLinear()
-    .domain([0, d3.max<any>(data.map((d: BarCharData) => d.value))]) //참조범위
+    .domain([0, d3.max<any>(data.map((d: BarChartData) => d.value))]) //참조범위
     .range([0, maxBarWidth]); //return 범위 : 생성될 bar의 최대 width
 
   const yScale: d3.ScaleBand<string> = d3
@@ -66,19 +60,18 @@ const BarChart = (props: BarChartProps) => {
     bar
       .append("rect")
       .attr("fill", "#2c303a")
-      .attr("width", (data: BarCharData) => {
+      .attr("width", (data: BarChartData) => {
         return xScale(data.value);
       })
       .attr("height", yScale.bandwidth());
-    // .attr("transform", `translate(28, 0)`);
 
     bar
       .append("text")
       .attr("fill", "white")
-      .attr("x", (data: BarCharData) => xScale(data.value) - 22)
+      .attr("x", (data: BarChartData) => xScale(data.value) - 22)
       .attr("y", (yScale.bandwidth() - 1) / 2)
       .attr("dy", "0.4em")
-      .text((data: BarCharData) => data.value);
+      .text((data: BarChartData) => data.value);
 
     bar
       .append("text")
@@ -86,7 +79,7 @@ const BarChart = (props: BarChartProps) => {
       .attr("x", "-28")
       .attr("y", (yScale.bandwidth() - 1) / 2)
       .attr("dy", "0.4em")
-      .text((data: BarCharData) => data.name);
+      .text((data: BarChartData) => data.name);
 
     //d is data
 
@@ -98,35 +91,7 @@ const BarChart = (props: BarChartProps) => {
   return (
     <style.BarChartWrapper>
       <style.SVG ref={svgRef} />
-
-      {data.map((d, index) => (
-        <style.RangeWrapper>
-          <style.RangeLabel>{d.name}</style.RangeLabel>
-          <style.RangeInput
-            type="range"
-            min="1"
-            max="50"
-            step="1"
-            value={data[index].value}
-            onChange={(e: any) => {
-              onSetValue(e.target.value, index);
-            }}
-          />
-        </style.RangeWrapper>
-      ))}
-      {/* <style.RangeWrapper>
-        <style.RangeLabel>B</style.RangeLabel>
-        <style.RangeInput
-          type="range"
-          step="1"
-          value={data[1].value}
-          min="1"
-          max="50"
-          onChange={(e: any) => {
-            onSetValue(e.target.value, 1);
-          }}
-        />
-      </style.RangeWrapper> */}
+      <BarChartSlider data={data} setData={setData} />
     </style.BarChartWrapper>
   );
 };
