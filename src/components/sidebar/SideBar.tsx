@@ -10,7 +10,7 @@ const SideBar = (props: SideBarProps) => {
   console.log(props.pageRefs);
   return (
     <style.SideBarBox>
-      <style.PortFolioTextLogo>PortFolio</style.PortFolioTextLogo>
+      <style.PortFolioTextLogo>SECTION</style.PortFolioTextLogo>
       <ScrollNav pageRefs={props.pageRefs} />;
     </style.SideBarBox>
   );

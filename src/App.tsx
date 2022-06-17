@@ -42,7 +42,8 @@ export default App;
 //       "^.+\\.(ts|tsx)$": "ts-jest"
 //     },
 //     "transformIgnorePatterns": [
-//       "node_modules/(?!gsap/.*)"
+//       "node_modules/(?!gsap/.*)",
+//       "/node_modules/(?!(d3|internmap|delaunator|^d3|robust-predicates/))"
 //     ],
 //     "testEnvironment": "jsdom",
 //     "testMatch": [

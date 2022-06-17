@@ -62,6 +62,15 @@
     "tsparticles": "^2.0.6"
   },
   "jest": {
-    "testEnvironment": "jsdom"
+    "transform": {
+      "\\.[jt]sx?$": "ts-jest"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!(d3|internmap|delaunator|robust-predicates))"
+    ],
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/jest-setup.tsx"
+    ]
   }
 }

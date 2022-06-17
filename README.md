@@ -47,3 +47,17 @@ https://www.javascriptstuff.com/use-refs-not-ids/
 일반적으로 DOM에 id property가 있다면, window 객체에서 전역으로 id를 저장하게 된다. 이 때 지정된 스코프 내에서 쓰이는 변수의 name과 id.name이 같다면, namespace 충돌을 일으키게 되어 안정성을 보장받지 못한다. (이를 해결하기 위해서는 id 값을 다른 변수값에 넣어서 사용해야한다.)
 
 https://greensock.com/forums/topic/13965-div-id-names-automatically-selected-by-gsap/?do=findComment&comment=58896
+
+
+---
+
+d3.js div vs svg
+
+d3.js 로 데이터시각화 컴포넌트를 구현하는 방법은 크게 Div, SVG, Canvas 가 있다.
+어떤 차이인가?
+
+div : 무난하지만, 로딩이 길어진다.
+svg : 선택과 이동이 쉽다. 가볍고 확장성이 크다. 
+canvas : 성능적으로 우수하지만, 객체를 모두 구현해야하고, state를 관리해야한다.
+
+svg가 젤 좋아보인다. 
