@@ -3,7 +3,7 @@ import Page1 from "./pages/Page1";
 import Page2 from "./pages/Page2";
 import Page3 from "./pages/Page3";
 
-const label = ["Main", "Page 1", "Page 2", "Page 3", "Page 4", "Page 5"];
+const label = ["Main", "Horizontal-BarChart", "Vertical-BarChart", "dd", "Page 4", "Page 5"];
 
 export const getPageContents = (
   pageRefs: React.MutableRefObject<HTMLTableSectionElement[]>
@@ -29,7 +29,3 @@ export const getPageContents = (
 export const getPageSectionLabel = () => {
   return label;
 };
-
-// TDD 적용 할 수 있을까?
-
-// PAGE 구상해야함.

@@ -8,7 +8,7 @@ export interface MainTextInterface {
 export const mainText : MainTextInterface= {
   name: "CHOI BOSUNG",
   born: "1996/09",
-  text: "FRONTEND DEVELOPER",
+  text: "TDD + D3JS",
 };
 
 

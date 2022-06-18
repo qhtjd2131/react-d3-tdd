@@ -2,6 +2,9 @@ import styled from "styled-components";
 
 export const RangeWrapper = styled.div`
   margin: 0 auto;
+  min-width: 250px;
+  width: 250px;
+  height: 160px;
 `;
 
 export const Range = styled.div`
@@ -13,5 +16,5 @@ export const RangeInput = styled.input``;
 export const RangeLabel = styled.label`
   color: white;
   font-size: 20px;
-  margin-right: 20px;
+  margin: 0 20px;
 `;

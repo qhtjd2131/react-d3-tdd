@@ -1,5 +1,5 @@
 import React from "react";
-import { BarChartData } from "./BarChart";
+import { BarChartData } from "../../pages/Page3";
 import * as style from "./BarChartSlider.style";
 
 interface BarChartSliderProps {
@@ -28,6 +28,8 @@ const BarChartSlider = (props: BarChartSliderProps) => {
           onSetValue(e.target.value, index);
         }}
       />
+      <style.RangeLabel>{d.value}</style.RangeLabel>
+
     </div>
   ));
 
