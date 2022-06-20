@@ -4,7 +4,6 @@ import * as style from "./BarChar.style";
 import { BarChartData } from "../../pages/Page3";
 
 interface BarChartProps {
-  barHegiht?: number;
   maxWidth?: number;
   barSpace?: number;
   data: BarChartData[];
@@ -13,7 +12,6 @@ const BarChart = (props: BarChartProps) => {
   const svgRef = useRef(null);
   const { data } = props;
 
-  const barHeight = 30;
   const maxBarWidth = 700;
   const barSpace = 0;
   const width = maxBarWidth;
@@ -29,7 +27,7 @@ const BarChart = (props: BarChartProps) => {
   const yScale = d3
     .scaleBand()
     .domain(data.map((d: BarChartData) => d.name))
-    .range([height - margin.bottom, margin.top])
+    .range([margin.top, height - margin.bottom])
     .padding(0.1);
 
   useEffect(() => {
@@ -51,7 +49,6 @@ const BarChart = (props: BarChartProps) => {
       .attr("width", (d) => xScale(d.value) - margin.left)
       .attr("height", yScale.bandwidth() / 2);
 
-    console.log(xScale(0));
     // const bar = svg
     //   .selectAll("g")
     //   .data(data)

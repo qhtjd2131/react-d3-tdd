@@ -61,3 +61,7 @@ svg : 선택과 이동이 쉽다. 가볍고 확장성이 크다.
 canvas : 성능적으로 우수하지만, 객체를 모두 구현해야하고, state를 관리해야한다.
 
 svg가 젤 좋아보인다. 
+
+
+//
+micro library(module)을 사용했을때와 d3 통합 모듈을 사용했을때의 ignorePattern 차이
