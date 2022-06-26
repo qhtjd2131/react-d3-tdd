@@ -20,6 +20,7 @@ interface Theme {
   side_text_active_color: string;
   side_path_color: string;
   side_path_bg_color: string;
+  mobile_page_header_height: string;
 }
 const theme: Theme = {
   size_4: "only screen and (max-width: 400px)",
@@ -44,6 +45,8 @@ const theme: Theme = {
   side_path_bg_color: "white",
 
   portfolio_logo_color: "#c4c08d",
+
+  mobile_page_header_height: "50px",
 };
 
 export default theme;

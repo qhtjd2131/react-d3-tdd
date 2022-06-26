@@ -15,6 +15,7 @@ export const ScrollNavBox = styled.div`
   /* border-radius: 30px; */
   /* z-index: 999; */
   /* opacity: 1; */
+  
 `;
 
 export const ContentsWrapper = styled.div`
@@ -31,7 +32,7 @@ export const SectionWrapper = styled.div`
 export const BackPath = styled.div`
   width: 4px;
   height: 100%;
-  background-color: ${(props)=>props.theme.side_path_bg_color};
+  background-color: ${(props) => props.theme.side_path_bg_color};
   margin: 0 auto;
   overflow: hidden;
 `;
@@ -39,7 +40,7 @@ export const FrontPath = styled.div`
   width: 4px;
   height: 1%;
   margin: 0 auto;
-  background-color : ${(props)=>props.theme.side_path_color};
+  background-color: ${(props) => props.theme.side_path_color};
 `;
 
 export const TextWrapper = styled.div`
@@ -47,11 +48,10 @@ export const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
- 
 `;
 
 export const SectionLink = styled.a`
   font-size: 20px;
   cursor: pointer;
-  color : ${(props)=>props.theme.side_text_normal_color};
+  color: ${(props) => props.theme.side_text_normal_color};
 `;

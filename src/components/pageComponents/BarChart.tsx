@@ -1,23 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
-import * as style from "./BarChar.style";
 import { BarChartData } from "../../pages/Page3";
+import styled from "styled-components";
 
 interface BarChartProps {
   maxWidth?: number;
   barSpace?: number;
   data: BarChartData[];
+  setRandomData: () => void;
 }
 const BarChart = (props: BarChartProps) => {
   const svgRef = useRef(null);
-  const { data } = props;
+  const { data, setRandomData } = props;
+  const margin = { top: 20, right: 20, bottom: 30, left: 40 };
 
-  const maxBarWidth = 700;
-  const barSpace = 0;
-  const width = maxBarWidth;
-  const height = 300;
-
-  const margin = { top: 20, right: 0, bottom: 30, left: 40 };
+  const width = 700;
+  const height = 400;
+  const maxBarWidth = width;
 
   const xScale: d3.ScaleLinear<number, number, never> = d3
     .scaleLinear()
@@ -28,64 +27,48 @@ const BarChart = (props: BarChartProps) => {
     .scaleBand()
     .domain(data.map((d: BarChartData) => d.name))
     .range([margin.top, height - margin.bottom])
-    .padding(0.1);
+    .padding(0.3);
 
   useEffect(() => {
     const svg = d3
       .select(svgRef.current)
       .attr("viewBox", [0, 0, width, height])
-      .attr("width", `${width}`)
+      .attr("width", "100%")
       .attr("height", `${height}`);
 
-    svg
-      .append("g")
-      .attr("fill", "#2c303a")
+    const bar = svg
       .selectAll("rect")
       .data(data)
       .join("rect")
+      .transition()
+      .duration(300);
+    bar
       .attr("x", margin.left)
       //@ts-ignore
-      .attr("y", (d: BarChartData) => yScale(d.name) + yScale.bandwidth() / 4)
+      .attr("y", (d: BarChartData) => yScale(d.name))
       .attr("width", (d) => xScale(d.value) - margin.left)
-      .attr("height", yScale.bandwidth() / 2);
+      .attr("height", yScale.bandwidth())
+      .attr("fill", "#2c303a")
+      .attr("key", (d) => d.name);
 
-    // const bar = svg
-    //   .selectAll("g")
+    // const text = svg
+    //   .selectAll("text")
     //   .data(data)
-    //   .join("g")
-    //   .attr(
-    //     "transform",
-    //     (data, index: number) =>
-    //       `translate(0, ${yScale(data.name)! + index * barSpace})`
-    //   );
-
-    // //bar
-    // bar
-    //   .append("rect")
-    //   .attr("fill", "#2c303a")
-    //   .attr("width", (data: BarChartData) => xScale(data.value))
-    //   .attr("height", yScale.bandwidth());
-
-    // //value text
-    // bar
-    //   .append("text")
+    //   .join("text")
+    //   .transition()
+    //   .duration(300);
+    // text
     //   .attr("fill", "white")
-    //   .attr("x", (data: BarChartData) => xScale(data.value) - 22)
-    //   .attr("y", (yScale.bandwidth() - 1) / 2)
-    //   .attr("dy", "0.4em")
-    //   .text((data: BarChartData) => data.value);
+    //   .attr("x", (d) => xScale(d.value) - margin.left + 14)
+    //   //@ts-ignore
+    //   .attr("y", (d: BarChartData) => yScale(d.name) + 36)
+    //   .text((d) => d.value);
 
-    // // name text
-    // bar
-    //   .append("text")
-    //   .attr("fill", "white")
-    //   .attr("x", "-28")
-    //   .attr("y", (yScale.bandwidth() - 1) / 2)
-    //   .attr("dy", "0.4em")
-    //   .text((data: BarChartData) => data.name);
+    /// text 랜더링 시 update 버튼 누르면 x y axis가 사라지는 현상 수정해얗마!
+  }, [data]);
 
-    //d is data
-
+  useEffect(() => {
+    const svg = d3.select(svgRef.current);
     svg
       .append("g")
       .attr("stroke", "white")
@@ -101,32 +84,55 @@ const BarChart = (props: BarChartProps) => {
     svg.selectAll("text").attr("font-size", "20px");
     svg.selectAll("path").attr("stroke", "white");
     svg.selectAll("line").attr("stroke", "white");
-
-    return () => {
-      svg.selectAll("*").remove();
-    };
-  }, [data]);
-
-  useEffect(() => {
-    // const svg = d3.select(svgRef.current);
-    // svg
-    //   .append("g")
-    //   .attr("transform", `translate(0,${height - margin.bottom})`)
-    //   .call(d3.axisBottom(xScale))
-    //   .attr("stroke", "white")
-    //   .attr("fill", "white");
-    // svg
-    //   .append("g")
-    //   .attr("transform", `translate(${margin.left},0)`)
-    //   .attr("stroke", "white")
-    //   .call(d3.axisLeft(axisYScale));
   }, []);
 
+  const ButtonUpdateClickHandler = () => {
+    setRandomData();
+  };
+
   return (
-    <style.BarChartWrapper>
-      <style.SVG ref={svgRef} />
-    </style.BarChartWrapper>
+    <BarChartWrapper>
+      <SVG ref={svgRef} />
+      <ButtonUpdate onClick={ButtonUpdateClickHandler}>update</ButtonUpdate>
+    </BarChartWrapper>
   );
 };
 
 export default BarChart;
+
+const BarChartWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  /* justify-content: flex-start;
+  align-items: center; */
+  flex-direction: column;
+  align-items: center;
+`;
+const SVG = styled.svg.attrs({
+  version: "1.1",
+  xmlns: "http://www.w3.org/2000/svg",
+  xmlnsXlink: "http://www.w3.org/1999/xlink",
+})`
+  font-size: 24px;
+  margin: 12px;
+  display: flex;
+`;
+
+const ButtonUpdate = styled.button`
+  width: 140px;
+  height: 60px;
+  font-size: 18px;
+  letter-spacing: 1.2px;
+  box-shadow: 0px 0px 12px -2px rgba(0, 0, 0, 0.5);
+  background-color: #2c303a;
+  color: white;
+  margin: 0 auto;
+  cursor: pointer;
+  transition: 0.2s;
+  border: none;
+  &:hover {
+    background-color: white;
+    color: #2c303a;
+  }
+`;

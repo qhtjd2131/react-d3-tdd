@@ -9,7 +9,7 @@ describe("<BarChart />", () => {
     { name: "B", value: 2 },
   ];
   it("barChart render", () => {
-    render(<BarCHart data={mockData} />);
+    render(<BarCHart data={mockData} setRandomData={()=>{ console.log("he")}}/>);
   });
 
   //snapshot을 사용해서 ui비교하기?

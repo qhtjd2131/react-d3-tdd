@@ -1,9 +1,8 @@
 import styled from "styled-components";
 
 export const OneMain = styled.div`
-  background-color: ${(props)=>props.theme.main_bg_color};
-  width: calc(100% - (${(props) => props.theme.sidebar_width}));
-  margin-left: ${(props) => props.theme.sidebar_width};
+  background-color: ${(props) => props.theme.main_bg_color};
+  width: 100%;
   height: calc(var(--vh) * 100);
   overflow: hidden;
 `;

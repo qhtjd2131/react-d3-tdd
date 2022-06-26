@@ -3,8 +3,7 @@
 import styled from "styled-components";
 
 export const PageBox = styled.section`
-  width: calc(100% - (${(props) => props.theme.sidebar_width}));
-  margin-left: ${(props) => props.theme.sidebar_width};
+  width: 100%;
   height: calc(var(--vh) * 100);
   background-color: transparent;
   display: flex;
@@ -14,6 +13,10 @@ export const PageBox = styled.section`
   box-sizing: border-box;
   background-color: ${(props) => props.theme.main_bg_color};
   overflow: hidden;
+
+  @media only screen and (max-width: 800px) {
+    margin-left: 0;
+  }
 `;
 
 export const ContentsWrapper = styled.div`
@@ -32,6 +35,5 @@ export const BodySection = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow : hidden;
-
+  overflow: hidden;
 `;
