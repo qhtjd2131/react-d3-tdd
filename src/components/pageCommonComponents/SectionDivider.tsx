@@ -1,14 +1,8 @@
 import gsap from "gsap";
 
-import React, { forwardRef, useEffect, useRef } from "react";
-import * as style from "./SectionDivider.style";
+import React, {  useEffect, useRef } from "react";
+import styled from "styled-components";
 
-// interface SectionDividerProps {}
-// const SectionDivider = forwardRef<HTMLDivElement, SectionDividerProps>(
-//   (ref, props) => {
-//     return <style.SectionDividerBox ref={ref} />;
-//   }
-// );
 interface SectionDividerProps {}
 const SectionDivider = (props: SectionDividerProps) => {
   const dividerRef = useRef(null);
@@ -26,7 +20,15 @@ const SectionDivider = (props: SectionDividerProps) => {
       width: "100%",
     });
   }, []);
-  return <style.SectionDividerBox ref={dividerRef} />;
+  return <SectionDividerBox ref={dividerRef} />;
 };
 
 export default SectionDivider;
+
+const SectionDividerBox = styled.div`
+  width: 0%;
+  height: 3px;
+  padding: 0;
+  margin: 5px 0;
+  background-color: gray;
+`;

@@ -4,6 +4,7 @@ import HeaderSection from "../components/pageCommonComponents/HeaderSection";
 import SectionDivider from "../components/pageCommonComponents/SectionDivider";
 import BarChart from "../components/pageComponents/BarChart";
 import * as commonStyle from "./PageCommon.style";
+
 export interface BarChartData {
   name: string;
   value: number;
@@ -18,10 +19,10 @@ const Page1 = forwardRef<HTMLTableSectionElement>((props, ref) => {
 
   const setRandomData = () => {
     const data : BarChartData[] = [
-      { name: "A", value: d3.randomInt(2, 50)() },
-      { name: "B", value: d3.randomInt(2, 50)() },
-      { name: "C", value: d3.randomInt(2, 50)() },
-      { name: "D", value: d3.randomInt(2, 50)() },
+      { name: "A", value: d3.randomInt(3, 50)() },
+      { name: "B", value: d3.randomInt(3, 50)() },
+      { name: "C", value: d3.randomInt(3, 50)() },
+      { name: "D", value: d3.randomInt(3, 50)() },
     ];
 
     setData(data);
@@ -41,3 +42,5 @@ const Page1 = forwardRef<HTMLTableSectionElement>((props, ref) => {
 });
 
 export default Page1;
+
+

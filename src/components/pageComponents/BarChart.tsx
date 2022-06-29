@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import { BarChartData } from "../../pages/Page3";
 import styled from "styled-components";
@@ -11,6 +11,9 @@ interface BarChartProps {
 }
 const BarChart = (props: BarChartProps) => {
   const svgRef = useRef(null);
+  const chartRef = useRef(null);
+  const xAxisRef = useRef(null);
+  const yAxisRef = useRef(null);
   const { data, setRandomData } = props;
   const margin = { top: 20, right: 20, bottom: 30, left: 40 };
 
@@ -23,7 +26,7 @@ const BarChart = (props: BarChartProps) => {
     .domain([0, 50]) //참조범위
     .range([margin.left, width - margin.right]); //return 범위 : 생성될 bar의 최대 width
 
-  const yScale = d3
+  const yScale: d3.ScaleBand<string> = d3
     .scaleBand()
     .domain(data.map((d: BarChartData) => d.name))
     .range([margin.top, height - margin.bottom])
@@ -36,54 +39,60 @@ const BarChart = (props: BarChartProps) => {
       .attr("width", "100%")
       .attr("height", `${height}`);
 
-    const bar = svg
+    const chart = d3.select(chartRef.current);
+
+    const bar = chart
       .selectAll("rect")
       .data(data)
       .join("rect")
       .transition()
-      .duration(300);
-    bar
+      .duration(300)
       .attr("x", margin.left)
       //@ts-ignore
-      .attr("y", (d: BarChartData) => yScale(d.name))
+      .attr("y", (d: BarChartData): any => yScale(d.name))
       .attr("width", (d) => xScale(d.value) - margin.left)
       .attr("height", yScale.bandwidth())
       .attr("fill", "#2c303a")
       .attr("key", (d) => d.name);
 
-    // const text = svg
-    //   .selectAll("text")
-    //   .data(data)
-    //   .join("text")
-    //   .transition()
-    //   .duration(300);
-    // text
-    //   .attr("fill", "white")
-    //   .attr("x", (d) => xScale(d.value) - margin.left + 14)
-    //   //@ts-ignore
-    //   .attr("y", (d: BarChartData) => yScale(d.name) + 36)
-    //   .text((d) => d.value);
+    const text = chart
+      .selectAll("text")
+      .data(data)
+      .join("text")
+      .transition()
+      .duration(300)
+      .attr("fill", "white")
+      .attr("x", (d) => xScale(d.value) - margin.left + 10)
+      //@ts-ignore
+      .attr("y", (d: BarChartData) => yScale(d.name) + 36)
+      .text((d) => d.value);
 
-    /// text 랜더링 시 update 버튼 누르면 x y axis가 사라지는 현상 수정해얗마!
+    return () => {};
   }, [data]);
 
   useEffect(() => {
-    const svg = d3.select(svgRef.current);
-    svg
+    const xAxis = d3.select(xAxisRef.current);
+    const yAxis = d3.select(yAxisRef.current);
+
+    xAxis
       .append("g")
       .attr("stroke", "white")
       .attr("transform", `translate(0,${height - margin.bottom})`)
       .call(d3.axisBottom(xScale));
 
-    svg
+    yAxis
       .append("g")
       .attr("stroke", "white")
       .attr("transform", `translate(${margin.left} ,0)`)
       .call(d3.axisLeft(yScale));
 
-    svg.selectAll("text").attr("font-size", "20px");
-    svg.selectAll("path").attr("stroke", "white");
-    svg.selectAll("line").attr("stroke", "white");
+    xAxis.selectAll("text").attr("font-size", "18px");
+    xAxis.selectAll("path").attr("stroke", "white");
+    xAxis.selectAll("line").attr("stroke", "white");
+
+    yAxis.selectAll("text").attr("font-size", "18px");
+    yAxis.selectAll("path").attr("stroke", "white");
+    yAxis.selectAll("line").attr("stroke", "white");
   }, []);
 
   const ButtonUpdateClickHandler = () => {
@@ -92,7 +101,11 @@ const BarChart = (props: BarChartProps) => {
 
   return (
     <BarChartWrapper>
-      <SVG ref={svgRef} />
+      <SVG ref={svgRef}>
+        <g ref={chartRef} role="chart" />
+        <g ref={xAxisRef} role="xAxis" />
+        <g ref={yAxisRef} role="yAxis" />
+      </SVG>
       <ButtonUpdate onClick={ButtonUpdateClickHandler}>update</ButtonUpdate>
     </BarChartWrapper>
   );
@@ -104,10 +117,9 @@ const BarChartWrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  /* justify-content: flex-start;
-  align-items: center; */
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 `;
 const SVG = styled.svg.attrs({
   version: "1.1",
