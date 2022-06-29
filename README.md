@@ -1,9 +1,12 @@
-# Portfolio
+# TDD + D3.js
 
+## Animation
 
-Main 화면
-1. gsap ScrollTrigger의 pin 속성을 이용하여 화면고정을 함.
+**Main 화면**
+1. gsap ScrollTrigger의 pin : true 속성을 이용하여 화면고정을 함.
+
 position : fixed 속성을 적용하는 것과는 어떤 차이가 있는가?
+
 => position : fixed 속성을 사용한다면, 엘리먼트가 fixed로 변경되면서 DOM 구조가 붕괴(변경) 됨을 야기할 수 있다. 즉, fixed된 엘리먼트로 인해서 다른 엘리먼트들이 그 자리를 차지하게 되는 경우이다.
 
 이러한 경우를 대비하여 gsap 에서는 fixed 된 엘리먼트와 같은 크기의 div 엘리먼트를 생성하여 프록시 요소로 활용한다.
@@ -11,11 +14,9 @@ position : fixed 속성을 적용하는 것과는 어떤 차이가 있는가?
 더 자세한 사항은 https://greensock.com/docs/v3/Plugins/ScrollTrigger 에서
 "How does pinning work under the hood?" 란에서 설명하고 있다.
 
-
-------------
-
+**scrollNavBar**
 scrollNavBar 를 두가지 방식으로 구현
-1. scrollHeight 와 지금 viewport의 height 를 이용한 연산으로 height 속성을 변경.
+1. scrollHeight 와 viewport의 height 를 이용한 연산으로 height 속성을 변경.
 2. gsap animation 라이브러리의 scrollTrigger.scrub 사용.
 
 두가지 방식의 차이점은?
@@ -29,11 +30,12 @@ scrollNavBar 를 두가지 방식으로 구현
 
 1번은 현재 scroll의 위치를 가져와서 사용해야하고 그에 따라 state가 변경되고 스타일속성이 변경된다. 따라서 매 스크롤 마다 리랜더링하는 과정을 거쳐야 한다.
 
-하지만 2번은 그렇지않다. 왜인가?
+하지만 gsap animation 을 사용한 2번은 그렇지않다. state에 의존하지 않기 때문에, 불필요한 리랜더링은 하지않고, 스타일을 redraw하는 작업만 하게 된다. 
 
----------------
 
-(애니메이션) DOM의 Element를 직접 조작하기 위해 useRef() 를 사용하는것과 id를 사용하는것은 어떤 차이가 있을까?
+**useRef vs id**
+
+DOM의 Element를 직접 조작하기 위해 useRef() 를 사용하는것과 id를 사용하는것은 어떤 차이가 있을까?
 
 useRef()를 사용하는 것이 낫다.
 
@@ -51,17 +53,17 @@ https://greensock.com/forums/topic/13965-div-id-names-automatically-selected-by-
 
 ---
 
-d3.js div vs svg
+## D3.js
 
-d3.js 로 데이터시각화 컴포넌트를 구현하는 방법은 크게 Div, SVG, Canvas 가 있다.
-어떤 차이인가?
+D3.js 로 컴포넌트를 만들 때, 사용할 수 있는 방법은 크게 3가지가 있다
+- HTML Element
+- SVG
+- Canvas
 
-div : 무난하지만, 로딩이 길어진다.
-svg : 선택과 이동이 쉽다. 가볍고 확장성이 크다. 
-canvas : 성능적으로 우수하지만, 객체를 모두 구현해야하고, state를 관리해야한다.
+이 세가지의 차이점을 알아보자.
 
-svg가 젤 좋아보인다. 
+- HTML Element(div) : 무난하지만, 로딩이 길어진다.
+- SVG : 선택과 이동이 쉽다. 가볍고 확장성이 크다. 
+- Canvas : 성능적으로 우수하지만, 객체를 모두 구현해야하고, state를 관리해야한다.
 
-
-//
-micro library(module)을 사용했을때와 d3 통합 모듈을 사용했을때의 ignorePattern 차이
+D3.js 공식문서에서도 SVG를 사용할 것을 권유하고 있다. SVG를 사용해서 컴포넌트를 개발해보자.
