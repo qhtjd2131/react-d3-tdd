@@ -46,7 +46,7 @@ export const useSetLinkAnimation = (
             trigger: document.body,
             start: `${startPosition} top`,
             toggleActions: "play pause reserve reset",
-            // markers : true,
+            markers : false,
           },
           color: theme.side_text_active_color,
         });
@@ -73,7 +73,7 @@ export const useSetPathAnimaition = (
           end: `${endPosition} top`, // page가 4개라서 75%임. 5개면 80%
           scrub: true,
           // invalidateOnRefresh: true,
-          markers: true,
+          markers: false,
         },
         ease: "none",
         height: "100%",

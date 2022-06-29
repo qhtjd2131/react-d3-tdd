@@ -7,7 +7,6 @@ export const useSetMainAnimation = (
   mainRef: React.RefObject<HTMLDivElement>
 ) => {
   useEffect(() => {
-    // console.log("mainRef : ", mainRef)
     if (mainRef.current != null) {
       gsap.to(mainRef.current, {
         scrollTrigger: {

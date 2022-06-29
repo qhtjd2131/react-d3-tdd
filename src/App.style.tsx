@@ -5,7 +5,6 @@ export const GlobalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  /* overflow: hidden; */
   overflow: hidden;
   background-color: ${(props) => props.theme.side_bg_color};
   margin-left: ${(props) => props.theme.sidebar_width};

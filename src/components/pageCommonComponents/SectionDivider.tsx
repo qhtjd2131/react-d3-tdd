@@ -1,6 +1,6 @@
 import gsap from "gsap";
 
-import React, {  useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 
 interface SectionDividerProps {}
@@ -12,7 +12,7 @@ const SectionDivider = (props: SectionDividerProps) => {
       scrollTrigger: {
         trigger: dividerRef.current,
         start: "bottom bottom",
-        toggleActions: "play pause reserve reset",
+        markers: false,
       },
       duration: 1,
       delay: 0.2,
