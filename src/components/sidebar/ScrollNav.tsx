@@ -3,7 +3,7 @@ import {
   useSetLinkAnimation,
   useSetNavLink,
   useSetPathAnimaition,
-} from "./scrollNav.hooks";
+} from "./ScrollNav.hooks";
 import * as constants from "../../constants";
 import theme from "../../style/theme";
 import styled from "styled-components";
