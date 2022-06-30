@@ -1,5 +1,16 @@
 # TDD + D3.js
 
+
+배포된 사이트 :
+
+**quick start**
+```
+npm install
+npm run start
+```
+
+---
+
 ## Animation
 
 **Main 화면**
