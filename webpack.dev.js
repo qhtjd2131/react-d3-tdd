@@ -1,8 +1,7 @@
 const { merge } = require("webpack-merge");
 
 const common = require("./webpack.common");
-// const devConfig = merge(common, {});
-// module.exports = devConfig;
+
 
 module.exports = merge(common, {
   mode: "development",
@@ -17,6 +16,4 @@ module.exports = merge(common, {
   },
 });
 
-// module.exports = merge({}, common);
 
-// console.log(merge(common, {}));

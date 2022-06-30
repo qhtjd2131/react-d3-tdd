@@ -1,31 +1,32 @@
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
-import ScrollToPlugin from "gsap/ScrollToPlugin";
 import React, { useEffect, useRef } from "react";
-import * as style from "./App.style"
+import * as style from "./App.style";
 import { useCustomHeight } from "./hooks/useCustomHeight";
 import Main from "./pages/Main";
-import * as constants from "./constants";
-import { useSetAppAnimation } from "./App.hooks";
 import SideBar from "./components/sidebar/SideBar";
 import { getPageContents } from "./pageInfo";
+import { gsap } from "gsap/dist/gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
+
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-
 const App = () => {
+  gsap.registerPlugin(ScrollTrigger);
+
   useCustomHeight();
 
   const appRef = useRef(null);
   const pageRefs = useRef<HTMLTableSectionElement[]>([]);
 
-  useSetAppAnimation(pageRefs);
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+  }, []);
 
-  const pageContents : JSX.Element[] = getPageContents(pageRefs);
-
+  const pageContents: JSX.Element[] = getPageContents(pageRefs);
 
   return (
     <style.GlobalWrapper ref={appRef}>
-      <Main data-testid="main-com"/>
+      <Main data-testid="main-com" />
       <SideBar pageRefs={pageRefs} />
 
       {pageContents}
@@ -34,26 +35,3 @@ const App = () => {
 };
 
 export default App;
-
-// ,
-//   "jest": {
-//     "transform": {
-//       "^.+\\.(js|jsx)?$": "babel-jest",
-//       "^.+\\.(ts|tsx)$": "ts-jest"
-//     },
-//     "transformIgnorePatterns": [
-//       "node_modules/(?!gsap/.*)",
-//       "/node_modules/(?!(d3|internmap|delaunator|^d3|robust-predicates/))"
-//     ],
-//     "testEnvironment": "jsdom",
-//     "testMatch": [
-//       "<rootDir>/**/*.test.(js|jsx|ts|tsx)",
-//       "<rootDir>/(tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx))"
-//     ],
-//     "setupFilesAfterEnv": [
-//       "<rootDir>/src/jest-setup.tsx"
-//     ],
-//     "moduleNameMapper": {
-//       "\\.(css|less)$": "identity-obj-proxy"
-//     }
-//   }

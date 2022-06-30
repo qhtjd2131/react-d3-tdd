@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import * as constants from "../../constants";
-import gsap from "gsap";
+import { gsap } from "gsap";
 import theme from "../../style/theme";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export const useSetNavLink = (
   refArr: React.MutableRefObject<HTMLAnchorElement[]>,
@@ -37,6 +38,8 @@ export const useSetLinkAnimation = (
   refArr: React.MutableRefObject<HTMLAnchorElement[]>
 ) => {
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
     const refLen = refArr.current.length;
     refArr.current.forEach((ref, index) => {
       if (index != 0) {
@@ -46,7 +49,7 @@ export const useSetLinkAnimation = (
             trigger: document.body,
             start: `${startPosition} top`,
             toggleActions: "play pause reserve reset",
-            markers : false,
+            markers: false,
           },
           color: theme.side_text_active_color,
         });
@@ -60,19 +63,16 @@ export const useSetPathAnimaition = (
 ) => {
   useEffect(() => {
     if (pathRef != null) {
-      console.log("resize hook");
+      gsap.registerPlugin(ScrollTrigger);
 
       const endPosition = 100 - (1 / constants.PAGE_COUNT) * 100 + "%";
       gsap.to(pathRef.current, {
         scrollTrigger: {
           id: "pathRef-controll",
           trigger: document.body,
-          // start: () => "top top",
-          // end: () => `${endPosition} top`, // page가 4개라서 75%임. 5개면 80%
           start: "top top",
           end: `${endPosition} top`, // page가 4개라서 75%임. 5개면 80%
           scrub: true,
-          // invalidateOnRefresh: true,
           markers: false,
         },
         ease: "none",
@@ -81,14 +81,3 @@ export const useSetPathAnimaition = (
     }
   }, []);
 };
-
-//Refactoring 타임
-
-// 반복되는 gsap 에니메이션 정의를 줄여보자
-
-// side bar navigation 컴포넌트를 디자인하고 구현하자.
-
-// 코드컨벤션에 맞춰서 구조를 짜보자.
-
-//  페이지 수가 늘었을 때 변수 하나만 변경해도 적용되게 만들어 보자.
-

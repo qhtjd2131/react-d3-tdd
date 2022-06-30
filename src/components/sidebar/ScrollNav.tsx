@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import React, {  useRef } from "react";
 import {
   useSetLinkAnimation,
   useSetNavLink,

@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-gsap.registerPlugin(ScrollTrigger);
 export const useSetMainAnimation = (
   mainRef: React.RefObject<HTMLDivElement>
 ) => {
   useEffect(() => {
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
     if (mainRef.current != null) {
       gsap.to(mainRef.current, {
         scrollTrigger: {

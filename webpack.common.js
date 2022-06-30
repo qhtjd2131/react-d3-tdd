@@ -1,5 +1,4 @@
 const path = require("path");
-const webpack = require("webpack");
 const dotenv = require("dotenv");
 dotenv.config({
   path: `${__dirname}/.env`,
@@ -11,14 +10,14 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const createStyledComponentsTransformer =
   require("typescript-plugin-styled-components").default;
 const styledComponentsTransformer = createStyledComponentsTransformer();
+const BundleAnalyzerPlugin =
+  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 module.exports = {
-  mode: "development",
-  entry: "./src/index.tsx",
-
+  entry: "./src/index",
   output: {
     filename: "main.js",
-    path: path.resolve(__dirname, "./dist"),
+    path: path.resolve(__dirname, "dist"),
     clean: true,
   },
   plugins: [
@@ -30,14 +29,7 @@ module.exports = {
       template: path.resolve(__dirname, "./public/index.html"),
       filename: "index.html",
     }),
-    new webpack.DefinePlugin({
-      "process.env.REACT_APP_API_KEY": JSON.stringify(
-        process.env.REACT_APP_API_KEY
-      ),
-      "process.env.REACT_APP_APP_ID": JSON.stringify(
-        process.env.REACT_APP_APP_ID
-      ),
-    }),
+    new BundleAnalyzerPlugin(),
   ],
   module: {
     rules: [
@@ -51,7 +43,7 @@ module.exports = {
         resolve: {
           fullySpecified: false,
         },
-        exclude: /node_modules/,
+        // exclude: /node_modules/,
         // exclude: /node_modules\/(?!(axios|react-router-dom))/,
         use: [
           {
@@ -61,17 +53,17 @@ module.exports = {
                 ["@babel/preset-env", { targets: { node: "current" } }],
                 "@babel/preset-react",
               ],
-              plugins: [
-                [
-                  "@babel/plugin-transform-runtime",
-                  {
-                    absoluteRuntime: false,
-                    corejs: 3,
-                    helpers: true,
-                    regenerator: true,
-                  },
-                ],
-              ],
+              // plugins: [
+              //   [
+              //     "@babel/plugin-transform-runtime",
+              //     {
+              //       absoluteRuntime: false,
+              //       corejs: 3,
+              //       helpers: true,
+              //       regenerator: true,
+              //     },
+              //   ],
+              // ],
             },
           },
         ],
@@ -90,31 +82,28 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
-        exclude: /node_modules/,
+        // exclude: /node_modules/,
         // exclude: /node_modules\/(?!(axios|react-router-dom))/,
-        resolve: {
-          fullySpecified: false,
-        },
+        // resolve: {
+        //   fullySpecified: false,
+        // },
         use: [
-          "source-map-loader",
+          // "source-map-loader",
           {
             loader: "babel-loader",
             options: {
-              presets: [
-                ["@babel/preset-env", { targets: { node: "current" } }],
-                "@babel/preset-react",
-              ],
-              plugins: [
-                [
-                  "@babel/plugin-transform-runtime",
-                  {
-                    absoluteRuntime: false,
-                    corejs: 3,
-                    helpers: true,
-                    regenerator: true,
-                  },
-                ],
-              ],
+              presets: [["@babel/preset-env"], "@babel/preset-react"],
+              // plugins: [
+              //   [
+              //     "@babel/plugin-transform-runtime",
+              //     {
+              //       absoluteRuntime: false,
+              //       corejs: 3,
+              //       helpers: true,
+              //       regenerator: true,
+              //     },
+              //   ],
+              // ],
             },
           },
           {
@@ -130,7 +119,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".js", ".jsx", ".ts", ".tsx"],
-    modules: [path.join(__dirname, "node_modules")],
+    extensions: [".ts", ".tsx", ".js", ".jsx"],
+    modules: ["node_modules"],
   },
 };
