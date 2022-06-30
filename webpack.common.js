@@ -10,8 +10,8 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const createStyledComponentsTransformer =
   require("typescript-plugin-styled-components").default;
 const styledComponentsTransformer = createStyledComponentsTransformer();
-const BundleAnalyzerPlugin =
-  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin =
+//   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 module.exports = {
   entry: "./src/index",
@@ -29,7 +29,7 @@ module.exports = {
       template: path.resolve(__dirname, "./public/index.html"),
       filename: "index.html",
     }),
-    new BundleAnalyzerPlugin(),
+    // new BundleAnalyzerPlugin(),
   ],
   module: {
     rules: [
